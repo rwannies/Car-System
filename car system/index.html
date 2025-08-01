@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vehicle Checklist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg-color: #f4f4f4;
+      --container-bg: #ffffff;
+      --text-color: #333;
+      --input-bg: #f9f9f9;
+      --primary-color: #007bff;
+      --success-bg: #d4edda;
+      --success-text: #155724;
+    }
+
+    body.dark-mode {
+      --bg-color: #121212;
+      --container-bg: #1f1f1f;
+      --text-color: #e0e0e0;
+      --input-bg: #2a2a2a;
+      --primary-color: #3399ff;
+      --success-bg: #224d35;
+      --success-text: #a8ffcb;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      margin: 0;
+      padding: 20px;
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--container-bg);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 28px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 14px 0 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--text-color);
+      font-size: 15px;
+      margin-bottom: 10px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background: #0056b3;
+      transform: scale(1.02);
+    }
+
+    .success-message {
+      display: none;
+      margin-top: 20px;
+      padding: 14px;
+      background-color: var(--success-bg);
+      color: var(--success-text);
+      border-radius: 8px;
+      border: 1px solid #c3e6cb;
+    }
+
+    .toggle-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .toggle-switch label {
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .toggle-switch input {
+      margin-left: 8px;
+      transform: scale(1.2);
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toggle-switch">
+      <label>Dark Mode <input type="checkbox" id="darkToggle" onclick="toggleDarkMode()"></label>
+    </div>
+
+    <h2>Vehicle Checklist</h2>
+
+    <label for="vehicleType">Vehicle Type</label>
+    <select id="vehicleType" required>
+      <option value="Hiace">Hiace</option>
+      <option value="Land Cruiser">Land Cruiser</option>
+    </select>
+
+    <label for="dents">Dents</label>
+    <textarea id="dents" placeholder="Describe any dents..."></textarea>
+
+    <label for="scratches">Scratches</label>
+    <textarea id="scratches" placeholder="Describe any scratches..."></textarea>
+
+    <label for="fuelLevel">Fuel Level</label>
+    <select id="fuelLevel" required>
+      <option value="">Select fuel level</option>
+      <option value="Empty">Empty</option>
+      <option value="Quarter">Quarter</option>
+      <option value="Half">Half</option>
+      <option value="Three Quarters">Three Quarters</option>
+      <option value="Full">Full</option>
+    </select>
+
+    <label for="seatCondition">Seat Condition</label>
+    <textarea id="seatCondition" placeholder="Describe seat condition..."></textarea>
+
+    <label for="fluidLevels">Fluid Levels</label>
+    <textarea id="fluidLevels" placeholder="Check oil, coolant, etc."></textarea>
+
+    <label for="tireCondition">Tire Condition</label>
+    <textarea id="tireCondition" placeholder="Describe tire condition..."></textarea>
+
+    <button onclick="submitChecklist()">Submit Checklist</button>
+
+    <div class="success-message" id="successMessage">
+      ✅ Checklist submitted successfully!
+    </div>
+  </div>
+
+  <script>
+    function submitChecklist() {
+      const data = {
+        vehicleType: document.getElementById('vehicleType').value,
+        dents: document.getElementById('dents').value,
+        scratches: document.getElementById('scratches').value,
+        fuelLevel: document.getElementById('fuelLevel').value,
+        seatCondition: document.getElementById('seatCondition').value,
+        fluidLevels: document.getElementById('fluidLevels').value,
+        tireCondition: document.getElementById('tireCondition').value,
+      };
+
+      console.log("Checklist Submitted:", data);
+      const successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 5000);
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
